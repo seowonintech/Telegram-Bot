@@ -34,10 +34,16 @@ exports.BotHandler = class BotHandler {
   subscribeEvent(customFunc) {
     this._bot.on(this._msgType, (msg) => {
       customFunc(msg);
-      // this._chatId = msg.chat.id;
-      // console.log('[KangLOG] this._chatId : ' + this._chatId);
-      // this._bot.sendMessage(chatId, msg.text, opts); // To reply to a specific user
-      // this._bot.sendMessage(this._chatId, msg.text);
     });
+  }
+
+  sendMessage(chatId, text) {
+    this._bot.sendMessage(chatId, text);
+  }
+
+  replyMessage(chatId, msgId, text) {
+    let opts = Object.assign({}, this._replyOpts);
+    opts['reply_to_message_id'] = msg.message_id;
+    this._bot.sendMessage(chatId, this._cmds, opts);
   }
 }
